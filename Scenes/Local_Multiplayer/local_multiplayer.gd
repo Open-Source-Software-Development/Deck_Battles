@@ -27,12 +27,14 @@ func _ready():
 	var fog: TileMap = $FogRenderer
 	fog.setup(board)
 	# Sets up hand rendering
-	hand_renderer.connect_to_player(board.players[board.current_player])
+	for player in board.players:
+		hand_renderer.connect_to_player(player)
 	board.players[0].begin_turn()
 
 	var camera = $Camera2D
 	camera.selected_tile.connect(self.on_selected_tile)
 	hand_renderer.card_selected.connect(self.on_card_selected)
+
 
 func on_card_selected(card_index: int):
 	selected_index = card_index

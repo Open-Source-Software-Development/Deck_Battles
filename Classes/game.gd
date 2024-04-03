@@ -34,16 +34,16 @@ func _ready():
 	num_players = 2
 	render_topbar.emit(board.turns, board.players[board.current_player])
 
+
 ## Changes the terrain for an array of tiles
 func set_terrain(terrain: Board.Terrain, location: Array[Vector2i]):
 	for position in location:
 		board.tiles[position.x][position.y] = terrain
 	terrain_updated.emit(location, terrain)
 
-
 ## Takes a card as input, and places that card at position x, y.
 func place_card(card: Card, x: int, y: int):
-	match(card.type):
+	match (card.type):
 		# Places a troop card
 		Card.CardType.TROOP:
 			var troop: Troop = Troop.new(self, card)
@@ -52,7 +52,6 @@ func place_card(card: Card, x: int, y: int):
 			troop.pos = Vector2i(x, y)
 			troop_placed.emit(troop, Vector2i(x, y))
 
-
 ## Places the nth card in the player's hand onto the board at position x, y
 func place_from_hand(index: int, x: int, y: int):
 	var player: Player = board.players[board.current_player]
@@ -60,11 +59,9 @@ func place_from_hand(index: int, x: int, y: int):
 	player.remove_from_hand(index)
 	self.place_card(card, x, y)
 
-
 ## Goes to the next player's turn
 func end_turn():
-	# Lets other nodes know that a player has ended their turn
-	turn_ended.emit(board.current_player)
+	var prev = board.current_player
 	# Updates current_player
 	board.current_player += 1
 	if board.current_player == num_players:
@@ -73,7 +70,15 @@ func end_turn():
 	# Sets next player up to begin their turn
 	render_topbar.emit(board.turns, board.current_player)
 	board.players[board.current_player].begin_turn()
+	
+	# Lets other nodes know that a player has ended their turn
+	turn_ended.emit(prev, board.players[board.current_player])
 
+	print("end turn clicked")
+	print(board.current_player)
+	print(board.turns)
+
+	
 
 ## Moves a troop from one position to another.
 ## WARNING: If the move is invalid, then this function will throw
@@ -89,7 +94,6 @@ func troop_move(troop: Troop, tile: Vector2i):
 	var path: Array = troop.move_graph[tile]
 	troop.clear_fog()
 	troop_moved.emit(troop, path)
-
 
 ## Removes a unit from the board
 func remove_unit(unit: Unit):

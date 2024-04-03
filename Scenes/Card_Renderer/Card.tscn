@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://kspsv02i5iy1"]
+[gd_scene load_steps=11 format=3 uid="uid://kspsv02i5iy1"]
 
 [ext_resource type="Script" path="res://Scenes/Card_Renderer/card_renderer.gd" id="1_mhkcl"]
 [ext_resource type="Texture2D" uid="uid://bl3xprvcul5w6" path="res://Assets/UI/hp.png" id="1_mrwpo"]
@@ -12,10 +12,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_swcj5"]
 bg_color = Color(0.992157, 1, 0, 1)
-
-[sub_resource type="ImageTexture" id="ImageTexture_mf2d0"]
-
-[sub_resource type="ImageTexture" id="ImageTexture_h60e8"]
 
 [node name="MarginContainer" type="MarginContainer"]
 texture_filter = 2
@@ -228,9 +224,8 @@ autowrap_mode = 3
 [node name="Focus" type="TextureButton" parent="."]
 layout_mode = 2
 toggle_mode = true
-texture_normal = SubResource("ImageTexture_mf2d0")
-texture_disabled = SubResource("ImageTexture_h60e8")
-texture_focused = ExtResource("9_ucqcp")
+keep_pressed_outside = true
+texture_pressed = ExtResource("9_ucqcp")
 stretch_mode = 0
 
 [connection signal="mouse_entered" from="Focus" to="." method="_on_focus_mouse_entered"]

@@ -23,10 +23,13 @@ func render_cards(hand: Array[Card]):
 	for card_node in cards:
 		card_node.queue_free()
 	cards.clear()
-
+	
+	print("CARDS:", cards)
+	print("HAND:", hand)
 	var num_cards = len(hand)
 	var increment = float(XBOUND[1] - XBOUND[0]) / num_cards
 	var xpos = XBOUND[0] + increment / 2
+	print("NUM_CARDS:", num_cards)
 	for i in range(num_cards):
 		var card = hand[i]
 		var rendered = card_scene.instantiate()
@@ -84,3 +87,9 @@ func setup_card(rendered, pos, scale, size):
 	rendered.position = pos - (size * scale) / 2
 	rendered.scale.x = scale
 	rendered.scale.y = scale
+
+
+func switch_hands(prev: int, curr: Player):
+	print(curr.hand)
+	self.render_cards(curr.hand)
+

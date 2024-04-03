@@ -145,6 +145,11 @@ func build_graph(x: int, y: int, board: Board):
 ## of 0 indicates that the unit can no longer move after going to [param to]. A return of
 ## -1 indicates that the unit cannot move to [param to]. Non-integer returns are allowed.
 func _calc_move_cost(strength: float, from: Vector2i, to: Vector2i, board: Board) -> float:
+	print("FROM:", from)
+	print("TO:", to)
+	if to.x >= board.SIZE.x or to.y >= board.SIZE.y:
+		return -1
+
 	var dest_type: Board.Terrain = board.tiles[to.x][to.y]
 	# Check if the destination tile contains another troop, skip if it does
 	var unit_at_destination = board.units[to.x][to.y]

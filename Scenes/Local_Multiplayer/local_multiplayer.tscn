@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/Local_Multiplayer/TerrainRenderer.gd" id="7_fqdo8"]
 [ext_resource type="Texture2D" uid="uid://b41gbib33us0y" path="res://Assets/Tiles/fog.png" id="7_gkb7q"]
 [ext_resource type="Script" path="res://Scenes/Local_Multiplayer/TopBarTextLabel.gd" id="7_v6a8q"]
+[ext_resource type="Script" path="res://Scenes/Local_Multiplayer/ActionBar.gd" id="7_o65sn"]
 [ext_resource type="Script" path="res://Scenes/Local_Multiplayer/camera.gd" id="8_gitxl"]
 [ext_resource type="Texture2D" uid="uid://b52v80k5bqxl5" path="res://Assets/Tiles/opaque-outline.png" id="9_387iw"]
 [ext_resource type="Script" path="res://Scenes/Local_Multiplayer/HandRenderer.gd" id="9_bv7jf"]
@@ -419,7 +420,7 @@ offset_right = 1152.0
 offset_bottom = 650.0
 script = ExtResource("9_bv7jf")
 
-[node name="Control" type="Control" parent="GUI_Renderer"]
+[node name="ActionBar" type="Control" parent="GUI_Renderer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -427,8 +428,9 @@ anchor_bottom = 1.0
 offset_top = 548.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("7_o65sn")
 
-[node name="BottomBar" type="MarginContainer" parent="GUI_Renderer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="GUI_Renderer/ActionBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -436,8 +438,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="GUI_Renderer/Control/BottomBar"]
+[node name="ColorRect" type="ColorRect" parent="GUI_Renderer/ActionBar/MarginContainer"]
 layout_mode = 2
+
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="TopBar" type="MarginContainer" parent="GUI_Renderer/Control"]
 layout_mode = 0
@@ -460,6 +473,56 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 script = ExtResource("7_v6a8q")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Button" type="Button" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Claim"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "End Turn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="FogRenderer" type="TileMap" parent="."]
 z_index = 10
 tile_set = SubResource("TileSet_ael6n")
@@ -477,5 +540,8 @@ script = ExtResource("11_0mh2y")
 [connection signal="render_topbar" from="Game" to="GUI_Renderer/Control/TopBar/ColorRect/RichTextLabel" method="_on_game_render_topbar"]
 [connection signal="terrain_updated" from="Game" to="TerrainRenderer" method="render"]
 [connection signal="troop_placed" from="Game" to="." method="render_troop"]
+[connection signal="turn_ended" from="Game" to="GUI_Renderer/HandRenderer" method="switch_hands"]
+[connection signal="turn_ended" from="Game" to="FogRenderer" method="switch_players"]
 [connection signal="mouse_entered" from="GUI_Renderer/HandRenderer" to="Camera2D" method="_on_hand_renderer_mouse_entered"]
 [connection signal="mouse_exited" from="GUI_Renderer/HandRenderer" to="Camera2D" method="_on_hand_renderer_mouse_exited"]
+[connection signal="pressed" from="GUI_Renderer/ActionBar/MarginContainer/ColorRect/MarginContainer/HBoxContainer/Button3" to="Game" method="end_turn"]
