@@ -76,8 +76,7 @@ func place_unit(unit: Unit, x: int, y: int):
 		Card.CardType.TROOP:
 			logger.log('game', 'Placing troop %s at (%d, %d)' % [unit.base_stats.name, x, y])
 			board.units[x][y] = unit
-			unit.pos = Vector2i(x, y)
-			unit.owned_by = board.current_player
+			unit.on_placed(Vector2i(x, y))
 			troop_placed.emit(unit, Vector2i(x, y))
 		_:
 			logger.error('game', 'Unknown unit type. Failed to place %s at (%d, %d)' % [unit.base_stats.name, x, y])

@@ -67,3 +67,8 @@ func get_placeable_tiles():
 ## Used to prevent memory leaks
 func delete_references():
     pass
+
+## Called when the unit is placed
+func on_placed(location: Vector2i):
+    owned_by = game.board.current_player
+    pos = location

@@ -21,6 +21,12 @@ func setup(attribute_id: int, game: Game, troop: Troop):
     board = game.board
     logger = game.logger
 
+
+## Called when the parent troop enters the game. This can happen when it is placed,
+## or when the game is loaded from a save file.
+func on_loaded():
+    pass
+
 # Virtual function which can be overwritten by children
 func on_moved(from: Vector2i, to: Vector2i):
     pass
