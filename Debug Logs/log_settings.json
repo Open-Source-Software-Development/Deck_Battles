@@ -8,12 +8,20 @@
 			"stdout",
 			"Debug Logs/log.txt",
 			"Debug Logs/game.txt"
+		],
+		"troop": [
+			"stdout",
+			"Debug Logs/log.txt"
+		],
+		"player": [
+			"stdout",
+			"Debug Logs/log.txt"
 		]
 	},
-	"default_output": "Debug Logs/log.txt",
+	"default_output": "stdout",
 	"levels": {
-		"Debug Logs/log.txt": "DEBUG",
-		"Debug Logs/game.txt": "DEBUG",
-		"stdout": "WARNING"
+		"Debug Logs/log.txt": "LOG",
+		"Debug Logs/game.txt": "LOG",
+		"stdout": "DEBUG"
 	}
 }

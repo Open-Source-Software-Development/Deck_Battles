@@ -76,6 +76,9 @@ func _ready():
 ## Loads a game from a save file.
 func load_game():
 	var board: Board = game.board
+	for player in board.players:
+		player.setup_on_load(game)
+	logger.log('local_multiplayer', 'Loading game from save file')
 	logger.log('game', 'Starting game on player %s\'s turn' % [board.players[board.current_player].name])
 	logger.indent('game')
 	# Renders all of the cities on the board
@@ -221,8 +224,6 @@ func on_turn_ended(prev_player: int, current_player: Player):
 	action_input_wait = false
 	# Sets state to default
 	state = States.DEFAULT
-	# Saves the game
-	on_save_game()
 	# Deselects any active units
 	deselect_unit()
 	
