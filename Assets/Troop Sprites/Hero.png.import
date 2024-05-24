@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8pl1caewtxjg"
-path="res://.godot/imported/Hero.png-b8c5a5387a99722baaf11666334a17a8.ctex"
+path="res://.godot/imported/Hero.png-06bfac71b7ccfc9c8ebb62b3c9627aa8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Troop Sprites/Hero.png"
-dest_files=["res://.godot/imported/Hero.png-b8c5a5387a99722baaf11666334a17a8.ctex"]
+source_file="res://Assets/Troop Sprites Extra/Hero.png"
+dest_files=["res://.godot/imported/Hero.png-06bfac71b7ccfc9c8ebb62b3c9627aa8.ctex"]
 
 [params]
 

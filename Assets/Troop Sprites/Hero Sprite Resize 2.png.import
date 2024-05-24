@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbxc663oxoqaa"
-path="res://.godot/imported/Hero Sprite Resize 2.png-dbe82dbdb3107b119a8ad72c6a5442d9.ctex"
+path="res://.godot/imported/Hero Sprite Resize 2.png-212baa840f753d6c5e6fae3f34561540.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Troop Sprites/Hero Sprite Resize 2.png"
-dest_files=["res://.godot/imported/Hero Sprite Resize 2.png-dbe82dbdb3107b119a8ad72c6a5442d9.ctex"]
+source_file="res://Assets/Troop Sprites Extra/Hero Sprite Resize 2.png"
+dest_files=["res://.godot/imported/Hero Sprite Resize 2.png-212baa840f753d6c5e6fae3f34561540.ctex"]
 
 [params]
 
