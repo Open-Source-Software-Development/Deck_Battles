@@ -293,15 +293,17 @@ func being_attacked(attacker: Unit, atk: int, attack_force: float) -> int:
 	# Otherwise emits damaged
 	damaged.emit()
 	# Runs through attributes
+	# TODO this assumes that all attributes that involve being attacked will return an int
+	var mult: int = 1
 	for attr in attributes:
-		attr.on_attacked(attacker)
+		mult *= attr.on_attacked(attacker)
 	logger.log('troop', 'Troop %s at (%d, %d) is counter-attacking' % [base_stats.name, pos.x, pos.y])
 	# Calculates counter damage
 	var counter_damage: int = 0
 	if  (attacker.pos.x in range(pos.x - rng, pos.x + rng + 1)) and (attacker.pos.y in range(pos.y - rng, pos.y + rng + 1)):
 		counter_damage = floor((def_force / (attack_force + def_force)) * defense)
 	
-	return counter_damage
+	return mult * counter_damage
 
 ## Attacks another unit
 func attack_unit(defender: Unit):
