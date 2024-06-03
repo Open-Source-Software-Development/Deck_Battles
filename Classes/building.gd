@@ -13,6 +13,8 @@ var can_act: bool = false
 var actions: Array[Action]
 ## The defense of the building
 var defense: int
+## Whether the building is disabled or not
+var disabled: int = 0
 
 
 ## Creates a new building from a corresponding card
@@ -76,3 +78,6 @@ func reset(prev: int, player: Player):
 	# Runs through attributes
 	for attr in attributes:
 		attr.reset()
+	if disabled > 0:
+		disabled -= 1
+		can_act = false

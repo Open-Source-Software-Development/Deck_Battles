@@ -27,6 +27,8 @@ var actions: Array[Action]
 var attack_list: Dictionary
 ## Used to print debug messages
 var logger
+## How long the troop is unable to act
+var disabled: int = 0
 
 ## Emitted when the troop takes damage
 signal damaged
@@ -395,6 +397,13 @@ func reset(prev: int, player: Player):
 	# Runs through attributes
 	for attr in attributes:
 		attr.reset()
+	
+	if disabled > 0:
+		disabled -= 1
+		can_move = false
+		can_attack = false
+		can_act = false
+		game.troop_toggle_act.emit(self)
 	# game.troop_toggle_act.emit(self)
 	logger.dedent('troop')
 
