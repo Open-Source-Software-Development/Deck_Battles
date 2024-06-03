@@ -27,6 +27,8 @@ var actions: Array[Action]
 var attack_list: Dictionary
 ## Used to print debug messages
 var logger
+## How long the troop is unable to act
+var disabled: int = 0
 
 ## Emitted when the troop takes damage
 signal damaged
@@ -293,15 +295,17 @@ func being_attacked(attacker: Unit, atk: int, attack_force: float) -> int:
 	# Otherwise emits damaged
 	damaged.emit()
 	# Runs through attributes
+	# TODO this assumes that all attributes that involve being attacked will return an int
+	var mult: int = 1
 	for attr in attributes:
-		attr.on_attacked(attacker)
+		mult *= attr.on_attacked(attacker)
 	logger.log('troop', 'Troop %s at (%d, %d) is counter-attacking' % [base_stats.name, pos.x, pos.y])
 	# Calculates counter damage
 	var counter_damage: int = 0
 	if  (attacker.pos.x in range(pos.x - rng, pos.x + rng + 1)) and (attacker.pos.y in range(pos.y - rng, pos.y + rng + 1)):
 		counter_damage = floor((def_force / (attack_force + def_force)) * defense)
 	
-	return counter_damage
+	return mult * counter_damage
 
 ## Attacks another unit
 func attack_unit(defender: Unit):
@@ -393,6 +397,13 @@ func reset(prev: int, player: Player):
 	# Runs through attributes
 	for attr in attributes:
 		attr.reset()
+	
+	if disabled > 0:
+		disabled -= 1
+		can_move = false
+		can_attack = false
+		can_act = false
+		game.troop_toggle_act.emit(self)
 	# game.troop_toggle_act.emit(self)
 	logger.dedent('troop')
 
